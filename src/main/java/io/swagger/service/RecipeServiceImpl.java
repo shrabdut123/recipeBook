@@ -47,11 +47,10 @@ public class RecipeServiceImpl implements RecipeService{
 		}else {
 			completeRecipe.setPeople(p);
 			int initialServing = recipe.getPeople();
-			//TODO: update the logic to round off to highest or lowest value
-			int factorial = p/initialServing;
+			int factor = p%initialServing == 0 ?  p%initialServing :p%initialServing + 1 ;
 			recipeIngredients = ingredientsList.
 					stream().
-					map((IngredientList im) -> new RecipeIngredient(im.getIngredient().getId(),im.getIngredient().getName(), im.getAmount()*factorial)
+					map((IngredientList im) -> new RecipeIngredient(im.getIngredient().getId(),im.getIngredient().getName(), im.getAmount()*factor)
 					).collect(Collectors.toList());
 		}
 		completeRecipe.setIngredients(recipeIngredients);

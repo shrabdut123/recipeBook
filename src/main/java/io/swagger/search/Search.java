@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,7 @@ public class Search {
         fullTextEntityManager.getSearchFactory()
         .buildQueryBuilder().forEntity(Ingredient.class).get();
     
+    /*
     // a very basic query by keywords
     org.apache.lucene.search.Query query =
         queryBuilder
@@ -46,10 +48,17 @@ public class Search {
           .onFields("name")
           .matching(text)
           .createQuery();
+    */
+    Query phraseQuery = queryBuilder
+    		  .phrase()
+    		  .withSlop(1)
+    		  .onField("name")
+    		  .sentence(text)
+    		  .createQuery();
 
     // wrap Ingredient query in an Hibernate Query object
     org.hibernate.search.jpa.FullTextQuery jpaQuery =
-        fullTextEntityManager.createFullTextQuery(query, Ingredient.class);
+        fullTextEntityManager.createFullTextQuery(phraseQuery, Ingredient.class);
   
     // execute search and return results (sorted by relevance as default)
     @SuppressWarnings("unchecked")
@@ -75,18 +84,24 @@ public class Search {
     QueryBuilder queryBuilder = 
         fullTextEntityManager.getSearchFactory()
         .buildQueryBuilder().forEntity(Recipe.class).get();
-    
+    /*
     // a very basic query by keywords
     org.apache.lucene.search.Query query =
         queryBuilder
           .keyword()
           .onFields("name")
           .matching(text)
-          .createQuery();
-
+          .createQuery();*/
+    Query phraseQuery = queryBuilder
+  		  .phrase()
+  		  .withSlop(1)
+  		  .onField("name")
+  		  .sentence(text)
+  		  .createQuery();
+    
     // wrap Ingredient query in an Hibernate Query object
     org.hibernate.search.jpa.FullTextQuery jpaQuery =
-        fullTextEntityManager.createFullTextQuery(query, Recipe.class);
+        fullTextEntityManager.createFullTextQuery(phraseQuery, Recipe.class);
   
     // execute search and return results (sorted by relevance as default)
     @SuppressWarnings("unchecked")

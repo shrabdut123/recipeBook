@@ -40,7 +40,7 @@ public class RecipeApiController implements RecipeApi {
     public ResponseEntity<CompleteRecipe> addRecipe(@ApiParam(value = "" ,required=true )  @Valid @RequestBody CompleteRecipe completeRecipe) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-        	log.info("completeRecipe----->>>"+completeRecipe);
+        	log.info("Inside Method addRecipe");
         	CompleteRecipe completeRecipeDB = recipeService.createRecipe(completeRecipe);
             return new ResponseEntity<CompleteRecipe>(completeRecipeDB, HttpStatus.OK);
         }
@@ -51,7 +51,7 @@ public class RecipeApiController implements RecipeApi {
     public ResponseEntity<CompleteRecipe> getRecipe(@ApiParam(value = "Number of people.") @Valid @RequestParam(value = "p", required = false) Integer p, @ApiParam(value = "The recipe ID.",required=true) @PathVariable("recipe_id") Integer recipeId) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-           	log.info("get recipe----->>>"+recipeId);
+           	log.info("Inside Method addRecipe, recipeId is:"+recipeId);
            CompleteRecipe completeRecipe = recipeService.getRecipe(p, recipeId);
            if(null== completeRecipe) {
               	throw new RecipeNotFoundException(recipeId + "-id: Not Found");
