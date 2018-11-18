@@ -21,3 +21,10 @@ Ingredient API
 Recipe API
 ![recipieapi](https://user-images.githubusercontent.com/44134264/48678276-6dc90800-eb81-11e8-922f-589eee1687bf.JPG)
 
+There is also provision for search by name. 
+
+Ingredient Search
+![ingredientsearch](https://user-images.githubusercontent.com/44134264/48678543-0614bc00-eb85-11e8-96d1-f171ddeb5f5a.JPG)
+
+Recipe Search
+![recipesearch](https://user-images.githubusercontent.com/44134264/48678544-06ad5280-eb85-11e8-8395-376b0ed187ef.JPG)
